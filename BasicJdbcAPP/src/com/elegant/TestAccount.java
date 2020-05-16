@@ -16,7 +16,7 @@ public class TestAccount {
 		
 		Statement st = connection.createStatement();
 		System.out.println(st);
-		String query_insert = "insert into account values(1,'ram',6000)";
+		String query_insert = "insert into account values(3,'Haitha',8000)";
 
 		int row = st.executeUpdate(query_insert);
 
