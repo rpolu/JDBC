@@ -1,4 +1,5 @@
 package com.elegant;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -15,17 +16,17 @@ public class JdbcAPP {
 		String password = "tiger";
 
 		Connection con = DriverManager.getConnection(url, userName, password);
+		
+		
 		Statement st = con.createStatement();
-
-		String query = "insert into users values('101','devaki','kishore','Ongole')";
-
+		
+		String query = "insert into student values(101,'rama')";
 		int row = st.executeUpdate(query);
-
-		System.out.println(row + " Inserted successfully.");
-
+		System.out.println(row + " inserted");
+		
+		
 		st.close();
-		con.close();
+		con.close();// Need to close the connection object
 
-		System.out.println(con);
 	}
 }
