@@ -1,30 +1,28 @@
 package com.elegant;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-public class JdbcAPP {
+
+public class DeleteAccount {
+
 	public static void main(String[] args) throws Exception {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		// Load the diver class.
-		// Register Driver class with DriverManager
 
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String userName = "system";
 		String password = "tiger";
-
 		Connection con = DriverManager.getConnection(url, userName, password);
-		
-		
-		Statement st = con.createStatement();
-		
-		String query = "insert into student values(101,'rama')";
-		int row = st.executeUpdate(query);
-		System.out.println(row + " inserted");
-		
-		
-		st.close();
-		con.close();// Need to close the connection object
+		Statement statement = con.createStatement();
 
+		String queryDelete = "delete from account where accnum=101";
+
+		int row = statement.executeUpdate(queryDelete);
+
+		System.out.println(row + " deleted");
+
+		statement.close();
+		con.close();
 	}
 }

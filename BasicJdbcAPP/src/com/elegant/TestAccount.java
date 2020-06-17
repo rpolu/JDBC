@@ -1,28 +1,31 @@
 package com.elegant;
-import java.sql.Statement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class TestAccount {
 
 	public static void main(String[] args) throws Exception {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
+
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String username = "system";
+		String userName = "system";
 		String password = "tiger";
 
-		Connection connection = DriverManager.getConnection(url, username, password);
-		
-		Statement st = connection.createStatement();
-		System.out.println(st);
-		String query_insert = "insert into account values(3,'Haitha',8000)";
+		Connection con = DriverManager.getConnection(url, userName, password);
 
-		int row = st.executeUpdate(query_insert);
+		String insertQuery = "insert into account values(101,'rama' ,9000)";
 
-		System.out.println(row + " row inserted in DB.");
+		Statement st = con.createStatement();
+
+		int row = st.executeUpdate(insertQuery);
+
+		System.out.println(row + " row inserted sucessfully");
+
 		st.close();
-		connection.close();
+		con.close();
 
 	}
 }
