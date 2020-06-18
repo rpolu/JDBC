@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class UpdateAccount {
+public class UpdateAccountSqlInjection {
 
 	public static void main(String[] args) throws Exception {
 
@@ -16,7 +16,7 @@ public class UpdateAccount {
 		Connection con = DriverManager.getConnection(url, userName, password);
 		Statement statement = con.createStatement();
 
-		String query = "update account set BALANCE=BALANCE+1000 where accnum=101";
+		String query = "update account set HOLDER_NAME='moha'n' where accnum=101";
 
 		int rows = statement.executeUpdate(query);
 

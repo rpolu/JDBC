@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class UpdateAccount {
+public class InsertAccount {
 
 	public static void main(String[] args) throws Exception {
 
@@ -13,15 +13,18 @@ public class UpdateAccount {
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String userName = "system";
 		String password = "tiger";
+
 		Connection con = DriverManager.getConnection(url, userName, password);
-		Statement statement = con.createStatement();
 
-		String query = "update account set BALANCE=BALANCE+1000 where accnum=101";
+		String insertQuery = "insert into account values(101,'rama' ,9000)";
 
-		int rows = statement.executeUpdate(query);
+		Statement st = con.createStatement();
 
-		System.out.println(rows + " rows updated");
-		statement.close();
+		int row = st.executeUpdate(insertQuery);
+
+		System.out.println(row + " row inserted sucessfully");
+
+		st.close();
 		con.close();
 
 	}
