@@ -1,9 +1,12 @@
 package com.elegant.jdbc;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
+
 public class TestTransaction {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
 		Connection con = null;
 		Statement st = null;
@@ -17,20 +20,29 @@ public class TestTransaction {
 
 			st = con.createStatement();
 
-			String query1 = "update account  set balance =balance-5000  where accnum=2";
-			String query2 = "update account  set balance =balance+5000  wher accnum=1";
+			String query1 = "update account  set balance =balance-5000  where accnum=1";
+			String query2 = "update account  set balance =balance+5000  where accnum=2";
 
 			st.executeUpdate(query1);
 			st.executeUpdate(query2);
 
 			con.commit();
+
 			System.out.println("Transaction completede");
 		} catch (Exception e) {
-			con.rollback();
+			try {
+				con.rollback();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
-			st.close();
-			con.close();
+			try {
+				st.close();
+				con.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
 		}
 
 	}
