@@ -11,10 +11,6 @@ import com.person.model.PersonModel;
 
 public class PersonDao {
 
-	private final String ORACLE_JDBC_DRIVER_ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	private final String UN = "system";
-	private final String PS = "tiger";
 	private final String QUERY = "INSERT INTO PERSON_APP VALUES(?,?,?,?,?)";
 	private final String DELETEQUERY = "DELETE FROM PERSON_APP WHERE PHNO=?";
 	private final String UPDATE_QUERY = "UPDATE PERSON_APP SET EMAIL= ? ,ADDRESS  = ? WHERE PHNO = ?";
@@ -22,8 +18,7 @@ public class PersonDao {
 	private final String GET_PERSONS = "SELECT * FROM PERSON_APP";
 
 	public void savePerson(PersonModel personModel) throws Exception {
-		Class.forName(ORACLE_JDBC_DRIVER_ORACLE_DRIVER);
-		Connection con = DriverManager.getConnection(URL, UN, PS);
+		Connection con = ConnectionsUtils.getConnection();
 		PreparedStatement pst = con.prepareStatement(QUERY);
 
 		pst.setString(1, personModel.getFirstName());
@@ -34,35 +29,32 @@ public class PersonDao {
 
 		pst.executeUpdate();
 		pst.close();
-		con.close();
+		ConnectionsUtils.closeConnection();
 
 	}
 
 	public void deletePerson(String phno) throws Exception {
-		Class.forName(ORACLE_JDBC_DRIVER_ORACLE_DRIVER);
-		Connection con = DriverManager.getConnection(URL, UN, PS);
+		Connection con = ConnectionsUtils.getConnection();
 		PreparedStatement pst = con.prepareStatement(DELETEQUERY);
 		pst.setString(1, phno);
 		pst.executeUpdate();
 		pst.close();
-		con.close();
+		ConnectionsUtils.closeConnection();
 	}
 
 	public void updatePerson(PersonModel personModel) throws Exception {
-		Class.forName(ORACLE_JDBC_DRIVER_ORACLE_DRIVER);
-		Connection con = DriverManager.getConnection(URL, UN, PS);
+		Connection con = ConnectionsUtils.getConnection();
 		PreparedStatement pst = con.prepareStatement(UPDATE_QUERY);
 		pst.setString(1, personModel.getEmail());
 		pst.setString(2, personModel.getAddress());
 		pst.setString(3, personModel.getPhno());
 		pst.executeUpdate();
 		pst.close();
-		con.close();
+		ConnectionsUtils.closeConnection();
 	}
 
 	public List<PersonModel> getAllPersons() throws Exception {
-		Class.forName(ORACLE_JDBC_DRIVER_ORACLE_DRIVER);
-		Connection con = DriverManager.getConnection(URL, UN, PS);
+		Connection con = ConnectionsUtils.getConnection();
 		PreparedStatement pst = con.prepareStatement(GET_PERSONS);
 		ResultSet rs = pst.executeQuery();
 		List<PersonModel> al = new ArrayList<PersonModel>();
@@ -78,13 +70,12 @@ public class PersonDao {
 		}
 		rs.close();
 		pst.close();
-		con.close();
+		ConnectionsUtils.closeConnection();
 		return al;
 	}
 
 	public PersonModel getPerson(String phno) throws Exception {
-		Class.forName(ORACLE_JDBC_DRIVER_ORACLE_DRIVER);
-		Connection con = DriverManager.getConnection(URL, UN, PS);
+		Connection con = ConnectionsUtils.getConnection();
 		PreparedStatement pst = con.prepareStatement(GET_PERSON_QUERY);
 		pst.setString(1, phno);
 		ResultSet rs = pst.executeQuery();
@@ -99,7 +90,7 @@ public class PersonDao {
 		}
 		rs.close();
 		pst.close();
-		con.close();
+		ConnectionsUtils.closeConnection();
 		return personModel;
 	}
 
