@@ -10,7 +10,7 @@ public class InserUserTest {
 		String name = "Rama Mohan Reddy";
 		String email = "rpolu.tech8@gmail.com";
 		String country = "India";
-		User newUser = new User(name, email, country);
+		User newUser = new User(11,name, email, country);
 		userDAO.saveUser(newUser);
 		System.out.println("User Details Saved successfully .");
 

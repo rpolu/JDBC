@@ -13,7 +13,7 @@ import com.elegant.jdbc.util.ConnectionUtils;
 
 public class UserDaoImpl implements UserDAO {
 
-	private static final String INSERT_USERS_SQL = "INSERT INTO USERS   (NAME, EMAIL, COUNTRY) VALUES  (?, ?, ?)";
+	private static final String INSERT_USERS_SQL = "INSERT INTO USERS   (ID,NAME, EMAIL, COUNTRY) VALUES  (?,?, ?, ?)";
 	private static final String SELECT_USER_BY_ID = "SELECT ID,NAME,EMAIL,COUNTRY FROM USERS WHERE ID =?";
 	private static final String SELECT_ALL_USERS = "SELECT * FROM USERS";
 	private static final String DELETE_USERS_SQL = "DELETE FROM USERS WHERE ID = ?";
@@ -25,9 +25,10 @@ public class UserDaoImpl implements UserDAO {
 		try {
 			connection = ConnectionUtils.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
-			preparedStatement.setString(1, user.getName());
-			preparedStatement.setString(2, user.getEmail());
-			preparedStatement.setString(3, user.getCountry());
+			preparedStatement.setInt(1, user.getId());
+			preparedStatement.setString(2, user.getName());
+			preparedStatement.setString(3, user.getEmail());
+			preparedStatement.setString(4, user.getCountry());
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
